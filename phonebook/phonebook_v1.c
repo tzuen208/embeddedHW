@@ -29,7 +29,6 @@ typedef struct __PHONE_BOOK_ENTRY {
 
 } PhoneBook;
 
-
 PhoneBook *findName(char Last[], PhoneBook *pHead) {
 
 	while (pHead != NULL) {
@@ -44,10 +43,10 @@ PhoneBook *findName(char Last[], PhoneBook *pHead) {
 
 	return NULL;
 }
-/*int findName_2(char Last[], char **book) {
+int findName_2(char Last[], char **book) {
 	int i ;
 	for(i = 0; i<BOOK_SIZE; i++){
-		printf("cmp:%s\n", book[i]);
+//		printf("cmp:%s\n", book[i]);
 		if(strcasecmp(Last, book[i]) ==0){
 			printf("findit:%s", book[i]);
 			return 1;
@@ -56,7 +55,7 @@ PhoneBook *findName(char Last[], PhoneBook *pHead) {
 
 	return 0;
 }
-*/
+
 PhoneBook *addName( char *lastname, PhoneBook *append){
 	PhoneBook *newuser;
 	newuser = (PhoneBook *) malloc(sizeof(PhoneBook));
@@ -75,28 +74,12 @@ char **  create(  int m , int n ){
     	return rows;
 }
 	
-void printBook(PhoneBook *head){
+/*void printBook(PhoneBook *head){
 	while(head != NULL){
 		printf("%s\n", head -> LastName);
 		head = head ->pNext;
 	}
-}
-//struct __Phone_BOOK_ENTRY *
-void findName_3(char Last[]/*, struct __PHONE_BOOK_ENTRY * pNext*/, char* lastname ) {
-
-	while (*&lastname != NULL) {
-//		printf("%s\n", *&lastname);
-		if (strcasecmp(Last, *&lastname ) == 0){
-			printf("findit:%s\n", *&lastname);
-			return ;
-		}
-	//	pNext = pNext + 0x90;
-		lastname = lastname+0x90;
-
-	}
-
-	return ;
-}
+}*/
 int main(void){
 	FILE *fp;
 	
@@ -107,26 +90,39 @@ int main(void){
 	strcpy(head -> LastName, "ben");
 	head -> pNext = NULL;
 	append = head;
-	//char c = head->pNext
 
 	while(fscanf(fp, "%s", name) != EOF){
 		//printf("%s", name);
 		append = addName(name, append);
 	}
-//	printBook(head);
-//	printf("%p\n", head->pNext);
-	
-//	append = head->pNext;
-//	printf("%p\n", append->pNext);
-//	append = append->pNext;
-//	printf("%p\n", append->pNext);
-//	printf("%d\n", sizeof(head->pNext));
+
+	char** book = create(BOOK_SIZE,16);	
+//	book[0] = "sssss";
+//	printf("%s", book[0]);
+	int i ;
 	append = head;
-//	printf("%s\n", *&(append->LastName));
+	for(i = 0;i<BOOK_SIZE; i++){
+		if(append -> LastName != NULL)
+		{
+			book[i] = append->LastName;
+//			printf("savebook: %s, %d\n", book[i],i);
+			
+			append = append -> pNext;
+		}
+	}
+	while( !findName_2("Zea", book) ){
+		for(i = 0;i<BOOK_SIZE; i++){
+			if(append -> LastName != NULL)
+			{
+				book[i] = append->LastName;
+	//			printf("savebook: %s\n", book[i]);
+				append = append -> pNext;
+			}
+			else break;
+		}
+	}
+
 //	append = findName("Zea", head);
-//	printf("%s\n", append->LastName);	
-	//findName_3("Zea", append->pNext,&(append->LastName));
-	findName_3("Zea", &(append->LastName));
 //	printf("%s\n", append->LastName);	
 	return 0;
 }

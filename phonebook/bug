@@ -1,0 +1,3 @@
+gcc -O0 -o phonebook phonebook.c
+perf stat -e cache-misses ./phonebook
+Zea
