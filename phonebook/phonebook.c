@@ -59,14 +59,20 @@ PhoneBook *addName( char *lastname, PhoneBook *append){
 	}
 }*/
 int main(void){
+	FILE *fp;
+	char name[MAX_LAST_NAME_SIZE];
+	fp = fopen("all-names.txt","r");
 	PhoneBook *head, *append;
 	head = (PhoneBook *) malloc(sizeof(PhoneBook));
-	strcpy(head -> LastName, "Ben");
+	strcpy(head -> LastName, "ben");
 	head -> pNext = NULL;
 	append = head;
-	append = addName("Andy", append);
-	append = addName("Larry", append);
-	append = findName("Andy", head);
+
+	while(fscanf(fp, "%s", name) != EOF){
+		//printf("%s", name);
+		append = addName(name, append);
+	}	
+	append = findName("Zea", head);
 	printf("%s\n", append->LastName);	
 }
 	
