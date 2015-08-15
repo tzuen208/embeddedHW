@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <time.h>
 #define MAX_LAST_NAME_SIZE 16
-#define BOOK_SIZE 512
 
 typedef struct __PHONE_BOOK_ENTRY {
 
@@ -44,19 +44,6 @@ PhoneBook *findName(char Last[], PhoneBook *pHead) {
 
 	return NULL;
 }
-/*int findName_2(char Last[], char **book) {
-	int i ;
-	for(i = 0; i<BOOK_SIZE; i++){
-		printf("cmp:%s\n", book[i]);
-		if(strcasecmp(Last, book[i]) ==0){
-			printf("findit:%s", book[i]);
-			return 1;
-		}
-	}
-
-	return 0;
-}
-*/
 PhoneBook *addName( char *lastname, PhoneBook *append){
 	PhoneBook *newuser;
 	newuser = (PhoneBook *) malloc(sizeof(PhoneBook));
@@ -65,38 +52,12 @@ PhoneBook *addName( char *lastname, PhoneBook *append){
 	newuser -> pNext = NULL;
 	return newuser;
 }
-char **  create(  int m , int n ){
-	char* values = calloc(m*n, sizeof(char));
-	char** rows = malloc(n*sizeof(char*));
-	int i;
-	for (i=0; i<n; ++i){
-        	rows[i] = values + i*m;
-    	}
-    	return rows;
-}
-	
-void printBook(PhoneBook *head){
-	while(head != NULL){
-		printf("%s\n", head -> LastName);
-		head = head ->pNext;
+/*void printBook(PhoneBook *head){
+	while(head!=NULL){
+		printf("%s\n", head-> LastName);
+		head = head -> pNext;
 	}
-}
-//struct __Phone_BOOK_ENTRY *
-void findName_3(char Last[]/*, struct __PHONE_BOOK_ENTRY * pNext*/, char* lastname ) {
-
-	while (*&lastname != NULL) {
-//		printf("%s\n", *&lastname);
-		if (strcasecmp(Last, *&lastname ) == 0){
-			printf("findit:%s\n", *&lastname);
-			return ;
-		}
-	//	pNext = pNext + 0x90;
-		lastname = lastname+0x90;
-
-	}
-
-	return ;
-}
+}*/
 int main(void){
 	FILE *fp;
 	
@@ -113,6 +74,7 @@ int main(void){
 		//printf("%s", name);
 		append = addName(name, append);
 	}
+	append = addName("tzuen", append);
 //	printBook(head);
 //	printf("%p\n", head->pNext);
 	
@@ -123,10 +85,15 @@ int main(void){
 //	printf("%d\n", sizeof(head->pNext));
 	append = head;
 //	printf("%s\n", *&(append->LastName));
-//	append = findName("Zea", head);
+	float startTime = 0 , endTime = 0;
+	startTime = (float)clock()/CLOCKS_PER_SEC;
+
+	append = findName("tzuen", head);
+	endTime = (float)clock()/CLOCKS_PER_SEC;
+	printf("time:%f\n", endTime-startTime);
 //	printf("%s\n", append->LastName);	
 	//findName_3("Zea", append->pNext,&(append->LastName));
-	findName_3("Zea", &(append->LastName));
+//	findName_3("Zea", &(append->LastName));
 //	printf("%s\n", append->LastName);	
 	return 0;
 }
