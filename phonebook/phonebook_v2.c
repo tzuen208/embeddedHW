@@ -28,7 +28,19 @@ typedef struct __PHONE_BOOK_ENTRY {
 	struct	__PHONE_BOOK_ENTRY *pNext;
 
 } PhoneBook;
-
+/*void printstruct(PhoneBook * book){
+	printf("L:%p\n",book->LastName);	
+	printf("F:%p\n",book->FirstName);	
+	printf("e:%p\n",book->email);	
+	printf("p:%p\n",book->phone);	
+	printf("c:%p\n",book->cell);	
+	printf("a:%p\n",book->addr1);	
+	printf("a:%p\n",book->addr2);	
+	printf("c:%p\n",book->city);	
+	printf("s:%p\n",book->state);	
+	printf("z:%p\n",book->zip);	
+	printf("_p:%p\n",book->pNext);	
+}*/
 PhoneBook *addName( char *lastname, PhoneBook *append){
 	PhoneBook *newuser;
 	newuser = (PhoneBook *) malloc(sizeof(PhoneBook));
@@ -45,18 +57,18 @@ void printBook(PhoneBook *head){
 	}
 }
 //struct __Phone_BOOK_ENTRY *
-void findName_3(char Last[]/*, struct __PHONE_BOOK_ENTRY * pNext*/, char* lastname, int offset ) {
+int findName_3(char Last[]/*, struct __PHONE_BOOK_ENTRY * pNext*/, char* lastname, int offset ) {
 
 	while (1) {
 		if (strcasecmp(Last, *&lastname ) == 0){
 //			printf("findit:%s\n", *&lastname);
-			return ;
+			return 1;
 		}
 		lastname = lastname+offset;
-
+		
 	}
-
-	return ;
+//	printf("cant find\n");
+	return 0;
 }
 int main(void){
 	FILE *fp;
@@ -91,7 +103,7 @@ int main(void){
         endTime = (float)clock()/CLOCKS_PER_SEC;
         printf("time:%f\n", endTime-startTime);
 
-
+//	printstruct(head);
 	return 0;
 }
 	
