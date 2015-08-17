@@ -61,14 +61,14 @@ int findName_3(char Last[],  char* lastname, int offset ) {
 
 	while (1) {
 		if (strcasecmp(Last, *&lastname ) == 0){
-			printf("findit:%s\n", *&lastname);
+//			printf("findit:%s\n", *&lastname);
 			return 1;
 		}
 	//	pNext = lastname + sizeof(PhoneBook);
 		lastname = lastname+offset;
 		
 	}
-	printf("cant find\n");
+//	printf("cant find\n");
 	return 0;
 }
 int main(void){
@@ -76,18 +76,22 @@ int main(void){
 	
 	char name[MAX_LAST_NAME_SIZE];
 	fp = fopen("all-names.txt","r");
-	char *memory = malloc(sizeof(PhoneBook) * 1000000);
+	char *memory = malloc(sizeof(PhoneBook) * 1200000);
 	PhoneBook *head, *append;
 	head = (PhoneBook *)memory;
 	memory += sizeof(PhoneBook);
 	strcpy(head -> LastName, "ben");
 	head -> pNext = NULL;
 	append = head;
+//	int p = 0;
 	while(fscanf(fp, "%s", name) != EOF){
-		//printf("%s", name);
+//		printf("%s ", name);
 		append = addName(name, append, memory);
 		memory += sizeof(PhoneBook);
+//		p++;
+//		printf("%d\n", p);
 	}
+//		printf("ffgfgfgfg%d\n", p);
 	append = addName("tzuen", append, memory);
 //	printBook(head);
 //	printf("%p\n", head->pNext);
